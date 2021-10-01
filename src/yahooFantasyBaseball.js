@@ -48,6 +48,12 @@ exports.yfbb = {
   roster() {
     return `${this.YAHOO}/team/${CONFIG.LEAGUE_KEY}.t.${CONFIG.TEAM}/roster/players`;
   },
+  rosterForTeam(teamNumber) {
+    return `${this.YAHOO}/team/${CONFIG.LEAGUE_KEY}.t.${teamNumber}/roster/players`;
+  },
+  playerStats(playerKey) {
+    return `${this.YAHOO}/league/${CONFIG.LEAGUE_KEY}/players;player_keys=${playerKey}/stats;type=week;week=4`;
+  },
 
   // Write to an external file to display output data
   writeToFile(data, file, flag) {
@@ -304,6 +310,28 @@ exports.yfbb = {
       return results.fantasy_content.team.roster.players;
     } catch (err) {
       console.error(`Error in getCurrentRoster(): ${err}`);
+      return err;
+    }
+  },
+
+  //Get current rost for a specific team in your league
+  async getCurrentRosterForTeam(teamNumber) {
+    try {
+      const results = await this.makeAPIrequest(this.rosterForTeam(teamNumber));
+      return results.fantasy_content.team;
+    } catch (err) {
+      console.error(`Error in getCurrentRosterForTeam(): ${err}`);
+      return err;
+    }
+  },
+
+  //get stats for a player
+  async getPlayerStatsData(playerId) {
+    try {
+      const results = await this.makeAPIrequest(this.playerStats(playerId));
+      return results;
+    } catch (err) {
+      console.error(`Error in getMyPlayers(): ${err}`);
       return err;
     }
   },

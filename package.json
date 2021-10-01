@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "node src/index.js",
+    "parse": "node src/parser.js",
     "league-prefix": "node src/getLeaguePrefix.js",
     "test": "npx mocha",
     "format": "eslint --fix \"$PWD/src/**/*.js\" && prettier-eslint \"$PWD/src/**/*.js\"",
@@ -19,6 +20,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.4",
+    "lodash": "^4.17.21",
     "qs": "^6.10.1",
     "xml2json": "^0.12.0"
   },
